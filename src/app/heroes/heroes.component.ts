@@ -15,17 +15,25 @@ export class HeroesComponent implements OnInit {
   heroes: Hero[] = [];
 
   constructor(
-    private heroService: HeroService,
-    private messageService: MessageService
+    private readonly heroService: HeroService,
+    private readonly messageService: MessageService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.loadHeroes();
     this.getHeroes();
   }
-
-  onSelect(hero: Hero): void {
-    this.selectedHero = hero;
-    this.messageService.add(`HeroesComponent: Selected hero id=${hero.id}`);
+  public loadHeroes(): void {
+    this.heroService.getHeroes().subscribe((heroes) => (this.heroes = heroes));
+  }
+  public onSelect(hero: Hero): void {
+    if (hero === this.selectedHero) {
+      this.selectedHero = undefined;
+      this.messageService.add(`Unselecting hero with${hero.id}`);
+    } else {
+      this.selectedHero = hero;
+      this.messageService.add(`Showing hero with ID ${hero.id}`);
+    }
   }
 
   getHeroes(): void {

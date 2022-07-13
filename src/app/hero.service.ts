@@ -10,11 +10,11 @@ import { MessageService } from './message.service';
   providedIn: 'root',
 })
 export class HeroService {
-  constructor(private messageService: MessageService) {}
+  constructor(private readonly messageService: MessageService) {}
 
-  getHeroes(): Observable<Hero[]> {
+  public getHeroes(): Observable<Hero[]> {
     const heroes = of(HEROES);
-    this.messageService.add('HeroService: fetched heroes');
+    this.messageService.add('HeroService: Heroes Roundup!');
     return heroes;
   }
 }
