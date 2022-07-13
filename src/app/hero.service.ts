@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { Observable, of } from 'rxjs';
 
 import { Hero } from './hero';
@@ -13,7 +14,7 @@ export class HeroService {
 
   getHeroes(): Observable<Hero[]> {
     const heroes = of(HEROES);
-    this.messageService.add(`HeroService: fetched heroes`);
+    this.messageService.add('HeroService: fetched heroes');
     return heroes;
   }
 }
