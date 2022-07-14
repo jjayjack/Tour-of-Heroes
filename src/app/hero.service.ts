@@ -22,11 +22,10 @@ export class HeroService {
   private heroesUrl = 'api/heroes'; // URL to web api
 
   public getHeroes(): Observable<Hero[]> {
-    // const heroes = of(HEROES);
-    // this.messageService.add('HeroService: Heroes Roundup!');
-    return this.http
-      .get<Hero[]>(this.heroesUrl)
-      .pipe(catchError(this.handleError<Hero[]>('getHeroes', [])));
+    return this.http.get<Hero[]>(this.heroesUrl).pipe(
+      tap((_) => this.log('fetched heroes')),
+      catchError(this.handleError<Hero[]>('getHeroes', []))
+    );
   }
   getHero(id: number): Observable<Hero> {
     const hero = HEROES.find((h) => h.id === id)!;
